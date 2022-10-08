@@ -1,0 +1,27 @@
+{
+  "name": "aureos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ifernandezNv/Aureos.git"
+  },
+  "author": "Isaac Fernández",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ifernandezNv/Aureos/issues"
+  },
+  "homepage": "https://github.com/ifernandezNv/Aureos#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.5",
+    "nodemon": "^2.0.20"
+  }
+}
