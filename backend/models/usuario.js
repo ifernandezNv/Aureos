@@ -22,6 +22,10 @@ const usuarioSchema = mongoose.Schema(
         type: Boolean,
         default: false
     },
+    tipo: {
+        type: String,
+        default: 'usuario'
+    },
     token: {
         type: String,
         trim: true

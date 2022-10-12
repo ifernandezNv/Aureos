@@ -3,6 +3,8 @@ import Usuario from '../models/usuario.js';
 import generarId from '../helpers/generarId.js';
 import generarJWT from '../helpers/generarJWT.js';
 
+import { emailRegistro, cambiarContrasenia } from '../helpers/emails.js';
+
 const registrarUsuario = async (req, res) =>{
     const {email} = req.body;
     const usuarioExistente = await Usuario.findOne({email});
@@ -12,6 +14,11 @@ const registrarUsuario = async (req, res) =>{
     try {
         const usuario = new Usuario(req.body);
         usuario.token = generarId();
+        emailRegistro({
+            nombre: usuario.nombre,
+            email: usuario.email,
+            token: usuario.token,
+        })
         await usuario.save();
         res.json(usuario);
     } catch (error) {
@@ -71,8 +78,13 @@ const olvidePassword = async (req, res)=>{
     }
     try {
         usuarioEncontrado.token = generarId();
+        cambiarContrasenia({
+            email: usuarioEncontrado.email,
+            token: usuarioEncontrado.token,
+            nombre: usuarioEncontrado.nombre,
+        })
         await usuarioEncontrado.save();
-        return res.json({msg: 'Se envió un correo con las isntrucciones para reestablecer tu password'});   
+        return res.json({msg: 'Se envió un correo con las instrucciones para reestablecer tu password'});   
     } catch (error) {
         console.log(error);
     }
@@ -105,11 +117,17 @@ const cambiarPassword = async (req, res) =>{
     }
 }
 
+const perfil = async (req, res)=>{
+    const {usuario} = req;
+    res.json(usuario);
+}
+
 export {
     registrarUsuario,
     autenticar,
     confirmarCuenta,
     olvidePassword,
     comprobarToken,
-    cambiarPassword
+    cambiarPassword,
+    perfil
 }
