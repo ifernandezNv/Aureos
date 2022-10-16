@@ -22,5 +22,5 @@ router.route('/olvide-password/:token')
     .post(cambiarPassword);
 
 router.get('/perfil', checkAuth, perfil)
-    
+
 export default router;

@@ -99,6 +99,7 @@ const comprobarToken = async (req, res) =>{
     }
     return res.json({msg: 'Token válido'})
 }
+
 const cambiarPassword = async (req, res) =>{
     const {password} = req.body;
     const {token} = req.params;
