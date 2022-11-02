@@ -11,7 +11,7 @@ const checkAuth = async(req, res, next)=>{
             req.usuario = await Usuario.findById(id).select('-password -confirmado -__v -token -createdAt -updatedAt');
             return next();
         } catch (error) {
-            return res.status(404).json({msg: 'Hubo un error'});
+            return res.status(404).json({msg: 'El usuario no existe'});
         }
     }else{
         return res.status(403).json({msg: 'Token no válido'});

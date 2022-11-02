@@ -29,6 +29,10 @@ const usuarioSchema = mongoose.Schema(
     token: {
         type: String,
         trim: true
+    },
+    tokenStream: {
+        type: String,
+        trim: true
     }
 },
 {

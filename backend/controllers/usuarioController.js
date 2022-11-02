@@ -1,9 +1,11 @@
-import express from 'express';
+import {StreamChat} from 'stream-chat';
 import Usuario from '../models/usuario.js';
 import generarId from '../helpers/generarId.js';
 import generarJWT from '../helpers/generarJWT.js';
 
 import { emailRegistro, cambiarContrasenia } from '../helpers/emails.js';
+
+const serverClient = StreamChat.getInstance('9mcsnjjfbxa6', 'cxykb9b937zn5pr5hdqjymr4eqqam4hyedfvfvmp9qry4bh29w2g4unejqr9annq');
 
 const registrarUsuario = async (req, res) =>{
     const {email} = req.body;
@@ -43,7 +45,8 @@ const autenticar = async (req, res) => {
             _id: usuario._id,
             nombre: usuario.nombre,
             email: usuario.email,
-            token: generarJWT(usuario._id)
+            token: generarJWT(usuario._id),
+            tipo: 'usuario'
         });
     }else{
         const error = new Error('Password incorrecto');
@@ -114,12 +117,13 @@ const cambiarPassword = async (req, res) =>{
         await usuarioEncontrado.save();
         return res.json({msg: 'Password modificado correctamente'});
     } catch (error) {
-        
+        console.log(error);       
     }
 }
 
 const perfil = async (req, res)=>{
     const {usuario} = req;
+    usuario.tokenStream = serverClient.createToken(usuario._id.toString());
     res.json(usuario);
 }
 
