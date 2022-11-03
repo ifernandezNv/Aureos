@@ -131,6 +131,33 @@ const perfil = async (req, res)=>{
     res.json(usuario);
 }
 
+const obtenerTodosUsuarios = async (req,res) => {
+    const usuarios = await Usuario.find();
+    if(!usuarios){
+        const error = new Error('No hay usuarios registrados');
+        return res.status(404).json({msg: error.message});
+    }
+    try {
+        await res.json(usuarios);
+    } catch (error) {
+        console.log(error);
+    }
+}
+const obtenerSoloUsuarios = async (req, res) => {
+    const usuarios = await Usuario.find().where('tipo').equals('usuario').select('-__v -confirmado -token -password -tokenStream ');
+    if(!usuarios){
+        const error = new Error('No hay usuarios registrados');
+        return res.status(404).json({msg: error.message});
+    }
+    try {
+        await res.json(usuarios);
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
+
 export {
     registrarUsuario,
     autenticar,
@@ -138,5 +165,7 @@ export {
     olvidePassword,
     comprobarToken,
     cambiarPassword,
-    perfil
+    perfil,
+    obtenerTodosUsuarios,
+    obtenerSoloUsuarios
 }
