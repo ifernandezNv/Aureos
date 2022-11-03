@@ -37,6 +37,10 @@ const actividadesSchema = mongoose.Schema(
     creadaPor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario'
+    },
+    realizadaPor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Usuario'
     }
 },
 {

@@ -11,7 +11,6 @@ dotenv.config();
 import cors from 'cors';
 
 const app = express();
-
 conectarDB();
 
 app.use(express.json());

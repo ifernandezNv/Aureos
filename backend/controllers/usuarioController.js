@@ -3,8 +3,13 @@ import Usuario from '../models/usuario.js';
 import generarId from '../helpers/generarId.js';
 import generarJWT from '../helpers/generarJWT.js';
 
+import * as dotenv from 'dotenv';
+
 import { emailRegistro, cambiarContrasenia } from '../helpers/emails.js';
 
+dotenv.config();
+
+const serverClient = StreamChat.getInstance(process.env.STREAM_KEY, process.env.STREAM_SECRET);
 
 const registrarUsuario = async (req, res) =>{
     const {email} = req.body;
