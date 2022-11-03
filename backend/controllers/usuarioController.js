@@ -5,7 +5,6 @@ import generarJWT from '../helpers/generarJWT.js';
 
 import { emailRegistro, cambiarContrasenia } from '../helpers/emails.js';
 
-const serverClient = StreamChat.getInstance('9mcsnjjfbxa6', 'cxykb9b937zn5pr5hdqjymr4eqqam4hyedfvfvmp9qry4bh29w2g4unejqr9annq');
 
 const registrarUsuario = async (req, res) =>{
     const {email} = req.body;
