@@ -105,11 +105,27 @@ const obtenerActividadesCreadas = async (req, res) =>{
     }
 }
 
+const obtenerActividad = async (req, res) => {
+    const {id} = req.params;
+    const actividad = await Actividades.findById(id);
+    if(!actividad){
+        const error = new Error('La actividad no existe');
+        return res.status(404).json({msg: error.message});
+    }
+    try {
+        return res.json(actividad);
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
 export {
     crearActividad,
     editarActividad,
     eliminarActividad,
     obtenerActividadesCategoria,
     obtenerActividadesGeneral,
-    obtenerActividadesCreadas
+    obtenerActividadesCreadas,
+    obtenerActividad
 }
