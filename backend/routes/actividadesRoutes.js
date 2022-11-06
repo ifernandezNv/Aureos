@@ -6,7 +6,8 @@ import {
     obtenerActividadesCategoria, 
     obtenerActividadesGeneral, 
     obtenerActividadesCreadas, 
-    obtenerActividad 
+    obtenerActividad, 
+    completarActividad
 } from '../controllers/actividadesController.js';
 
 const router = express.Router();
@@ -15,7 +16,9 @@ router.route('/')
     .get(checkAuth, obtenerActividadesGeneral)
     .post(obtenerActividadesCategoria);
 
-router.get('/:id', checkAuth, obtenerActividad);
+router.route('/:id')
+    .get(checkAuth, obtenerActividad)
+    .put(checkAuth, completarActividad);
 
 router.post('/creadas', checkAuth, obtenerActividadesCreadas)
     

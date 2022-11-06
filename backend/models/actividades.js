@@ -38,10 +38,12 @@ const actividadesSchema = mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario'
     },
-    realizadaPor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Usuario'
-    }
+    completadaPor: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Usuario'
+        }
+    ]
 },
 {
     timeStamps: true
