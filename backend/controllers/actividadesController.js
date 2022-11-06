@@ -98,6 +98,7 @@ const obtenerActividadesCreadas = async (req, res) =>{
         return res.status(404).json({msg: error.message});
     }
     try {
+        const actividades = await Actividades.find().where('creadaPor').equals(idUsuario);
         const actividadesCreadas = await Actividades.find().where('creadaPor').equals(idUsuario);
         return res.json(actividadesCreadas);
     } catch (error) {
@@ -123,6 +124,7 @@ const completarActividad = async (req, res) => {
     const {id} = req.params;
     const usuarioEncontrado = await Usuario.findById(idUsuario);
     const actividad = await Actividades.findById(id);
+    console.log(actividad);
     if(!usuarioEncontrado){
         const error = new Error('El usuario no existe');
         return res.status(404).json({msg: error.message});
@@ -132,11 +134,11 @@ const completarActividad = async (req, res) => {
         return res.status(404).json({msg: error.message});
     }
     try {
-        console.log(actividad);
-        actividad.completadaPor = [...actividad.completadaPor, idUsuario.toString()];
+        // console.log(actividad);
+        // actividad.completadaPor = [...actividad.completadaPor, idUsuario];
     
         // await actividad.save();
-        return res.json({msg: "Actividad completada correctamente"});
+        // return res.json({msg: "Actividad completada correctamente"});
     } catch (error) {
         console.log(error);
     }
