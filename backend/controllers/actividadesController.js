@@ -124,7 +124,6 @@ const completarActividad = async (req, res) => {
     const {id} = req.params;
     const usuarioEncontrado = await Usuario.findById(idUsuario);
     const actividad = await Actividades.findById(id);
-    console.log(actividad);
     if(!usuarioEncontrado){
         const error = new Error('El usuario no existe');
         return res.status(404).json({msg: error.message});
@@ -134,14 +133,34 @@ const completarActividad = async (req, res) => {
         return res.status(404).json({msg: error.message});
     }
     try {
-        // console.log(actividad);
-        // actividad.completadaPor = [...actividad.completadaPor, idUsuario];
-    
-        // await actividad.save();
-        // return res.json({msg: "Actividad completada correctamente"});
+        
+        actividad.completadaPor.push(idUsuario);
+        await actividad.save();
+        return res.json({msg: "Actividad completada correctamente"});
     } catch (error) {
         console.log(error);
     }
+}
+
+const verActividadesCompletadas = async (req, res) => {
+    const {id} = req.params;
+    const usuario = await Usuario.findById(id);
+    if(!usuario){
+        const error = new Error('El usuario no existe');
+        return res.status(404).json({msg: error.message});
+    }
+    const actividadesCompletadas = await Actividades.find().where('completadaPor').equals(id);
+    if(!actividadesCompletadas){
+        const error = new Error('No se ha completado ninguna actividad');
+        return res.json({msg: error.message});
+    }
+    try {
+        await res.json(actividadesCompletadas);
+        return;
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 export {
@@ -152,5 +171,6 @@ export {
     obtenerActividadesGeneral,
     obtenerActividadesCreadas,
     obtenerActividad,
-    completarActividad
+    completarActividad,
+    verActividadesCompletadas
 }
