@@ -2,7 +2,8 @@ import express from 'express';
 import checkAuth from '../middleware/checkAuth.js';
 
 import { 
-    crearActividad, 
+    crearActividad,
+    editarActividad, 
     obtenerActividadesCategoria, 
     obtenerActividadesGeneral, 
     obtenerActividadesCreadas, 
@@ -15,7 +16,9 @@ const router = express.Router();
 
 router.route('/')
     .get(checkAuth, obtenerActividadesGeneral)
-    .post(obtenerActividadesCategoria);
+    .post(obtenerActividadesCategoria)
+
+router.put('/editar/:id', checkAuth, editarActividad)
 
 router.route('/:id')
     .get(checkAuth, obtenerActividad)

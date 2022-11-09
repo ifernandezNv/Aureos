@@ -29,19 +29,25 @@ const crearActividad = async (req, res)=>{
 }
 
 const editarActividad = async (req, res)=>{
-    const {_id} = req.body;
-    const actividadEncontrada = await Actividades.findById(_id);
+    const {id} = req.params;
+    const actividadEncontrada = await Actividades.findById(id);
     if(!actividadEncontrada){
         const error = new Error('La actividad no existe');
         return res.status(404).json({msg: error.message});
     }
     try {
-        const {titulo, descripcion, duracion, imagen, categoria} = req.body;
+        const {titulo, descripcion, duracion, imagen, categoria, completadaPor} = req.body;
         actividadEncontrada.titulo = titulo || actividadEncontrada.titulo;
         actividadEncontrada.descripcion = descripcion || actividadEncontrada.descripcion;
         actividadEncontrada.duracion = duracion || actividadEncontrada.duracion;
         actividadEncontrada.imagen = imagen || actividadEncontrada.imagen;
-        actividadEncontrada.categoria = categoria || actividadEncontrada.categoria;
+        if(actividadEncontrada.categoria.includes(categoria)){
+            actividadEncontrada.categoria = actividadEncontrada.categoria;
+        }else{
+            actividadEncontrada.categoria = categoria;
+        }
+        actividadEncontrada.creadaPor = actividadEncontrada.creadaPor;
+        actividadEncontrada.completadaPor = actividadEncontrada.completadaPor;
         await actividadEncontrada.save();
         res.json({msg: 'Actividad editada correctamente'});
     } catch (error) {
