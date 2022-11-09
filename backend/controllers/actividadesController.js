@@ -19,7 +19,8 @@ const crearActividad = async (req, res)=>{
         return res.status(401).json({msg: error.message});
     }
     try {
-        const actividad = new Actividades.create(req.body); 
+        const actividad = new Actividades(req.body);
+        await actividad.save();
         res.json(actividad);
     } catch (error) {
         console.log(error);
