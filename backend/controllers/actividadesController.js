@@ -2,6 +2,7 @@
 import Actividades from '../models/actividades.js';
 import Usuario from '../models/usuario.js';
 
+
 const crearActividad = async (req, res)=>{
     const {identificador, creadaPor} = req.body;
     const actividadEncontrada = await Actividades.findOne({identificador});
@@ -57,17 +58,17 @@ const editarActividad = async (req, res)=>{
 }
 
 const eliminarActividad = async (req, res)=>{
-    const {identificador} = req.body;
-    const {actividadEncontrada} = await Actividades.findById(identificador);
+    const {id} = req.body;
+    const actividadEncontrada = await Actividades.findById(id);
     if(!actividadEncontrada){
         const error = new Error('La actividad no existe');
         return res.status(404).json({msg: error.message});
     }
     try {
         await actividadEncontrada.delete();
-        return res.json({msg: 'Actividad eliminada correctamente'});
+        res.json({msg: 'Actividad eliminada correctamente'});
     } catch (error) {
-        console.log(error);   
+        console.log(error);
     }
 }
 

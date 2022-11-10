@@ -3,7 +3,8 @@ import checkAuth from '../middleware/checkAuth.js';
 
 import { 
     crearActividad,
-    editarActividad, 
+    editarActividad,
+    eliminarActividad, 
     obtenerActividadesCategoria, 
     obtenerActividadesGeneral, 
     obtenerActividadesCreadas, 
@@ -18,11 +19,12 @@ router.route('/')
     .get(checkAuth, obtenerActividadesGeneral)
     .post(obtenerActividadesCategoria)
 
-router.put('/editar/:id', checkAuth, editarActividad)
+router.put('/editar/:id', checkAuth, editarActividad);
+router.post('/borrar/:id', checkAuth, eliminarActividad);
 
 router.route('/:id')
     .get(checkAuth, obtenerActividad)
-    .put(checkAuth, completarActividad);
+    .put(checkAuth, completarActividad)
 
 
 router.post('/creadas', checkAuth, obtenerActividadesCreadas);
