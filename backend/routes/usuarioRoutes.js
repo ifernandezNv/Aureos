@@ -8,7 +8,8 @@ import {
     cambiarPassword,
     perfil,
     obtenerTodosUsuarios,
-    obtenerSoloUsuarios
+    obtenerSoloUsuarios,
+    eliminarUsuario
 }
 from '../controllers/usuarioController.js';
 
@@ -23,7 +24,7 @@ router.post('/olvide-password', olvidePassword)
 router.route('/olvide-password/:token')
     .get(comprobarToken)    
     .post(cambiarPassword);
-
+router.delete('/eliminar/:id', checkAuth, eliminarUsuario);
 router.get('/perfil', checkAuth, perfil)
 
 router.get('/todos', checkAuth, obtenerTodosUsuarios);

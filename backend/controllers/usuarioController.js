@@ -157,6 +157,21 @@ const obtenerSoloUsuarios = async (req, res) => {
     }
 }
 
+const eliminarUsuario = async(req, res) => {
+    const {id} = req.params;
+    console.log(id);
+    const usuario = await Usuario.findById(id);
+    if(!usuario){
+        const error = new Error('El usuario no existe');
+        return res.status(404).json({msg: error.message});
+    }
+    try {
+        await usuario.delete();
+        res.json({msg: 'Usuario eliminado correctamente'});
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export {
     registrarUsuario,
@@ -167,5 +182,6 @@ export {
     cambiarPassword,
     perfil,
     obtenerTodosUsuarios,
-    obtenerSoloUsuarios
+    obtenerSoloUsuarios,
+    eliminarUsuario
 }
