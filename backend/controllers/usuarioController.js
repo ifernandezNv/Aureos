@@ -159,7 +159,6 @@ const obtenerSoloUsuarios = async (req, res) => {
 
 const eliminarUsuario = async(req, res) => {
     const {id} = req.params;
-    console.log(id);
     const usuario = await Usuario.findById(id);
     if(!usuario){
         const error = new Error('El usuario no existe');
