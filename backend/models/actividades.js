@@ -27,7 +27,7 @@ const actividadesSchema = mongoose.Schema(
         required: true
     },
     imagen: {
-        type: String,
+        type: Object,
         trim: true
     },
     identificador: {

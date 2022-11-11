@@ -1,7 +1,8 @@
-import {v2 as cloudinary} from 'cloudinary';
+import cloudinary from 'cloudinary';
 import * as dotenv from 'dotenv';
 import Actividades from '../models/actividades.js';
 import Usuario from '../models/usuario.js';
+import axios from 'axios';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ cloudinary.config({
 
 const crearActividad = async (req, res)=>{
     const {identificador, creadaPor, imagen} = req.body;
+    let imagenGuardada = '';
     const actividadEncontrada = await Actividades.findOne({identificador});
     const usuarioEncontrado = await Usuario.findById(creadaPor).select('-__v -updatedAt -createdAt -password -confirmado -token');
     if(actividadEncontrada){
@@ -29,11 +31,10 @@ const crearActividad = async (req, res)=>{
     }
     try {
         const actividad = new Actividades(req.body);
-        
-        // await actividad.save();
+        await actividad.save();
         res.json(actividad);
     } catch (error) {
-        console.log(error);
+        console.log(error.response);
     }
     
 }
