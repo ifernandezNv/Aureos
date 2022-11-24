@@ -47,12 +47,13 @@ const editarActividad = async (req, res)=>{
         return res.status(404).json({msg: error.message});
     }
     try {
-        const {titulo, descripcion, duracion, imagen, categoria, instrucciones} = req.body;
+        const {titulo, descripcion, duracion, imagen, categoria, instrucciones, contenido} = req.body;
         actividadEncontrada.titulo = titulo || actividadEncontrada.titulo;
         actividadEncontrada.descripcion = descripcion || actividadEncontrada.descripcion;
         actividadEncontrada.duracion = duracion || actividadEncontrada.duracion;
         actividadEncontrada.imagen = imagen || actividadEncontrada.imagen;
         actividadEncontrada.instrucciones = instrucciones || actividadEncontrada.instrucciones;
+        actividadEncontrada.contenido = contenido || actividadEncontrada.contenido;
         if(actividadEncontrada.categoria.includes(categoria)){
             actividadEncontrada.categoria = actividadEncontrada.categoria;
         }else{
