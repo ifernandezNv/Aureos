@@ -44,12 +44,10 @@ const actividadesSchema = mongoose.Schema(
             ref: 'Usuario'
         },
     ],
-    contenido: [
-        {
-            type: String,
-            tipoContenido: String,
-        }
-    ]
+    contenido:{
+        type: String,
+        trim: true
+    }
 },
 {
     timeStamps: true
