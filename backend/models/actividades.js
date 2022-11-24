@@ -43,6 +43,12 @@ const actividadesSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Usuario'
         },
+    ],
+    contenido: [
+        {
+            type: String,
+            tipoContenido: String,
+        }
     ]
 },
 {
