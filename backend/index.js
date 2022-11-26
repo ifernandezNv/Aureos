@@ -28,7 +28,7 @@ const io = new Server(servidor, {
 
 io.on('connection', (socket) => {
     console.log('Conectado al servidor y socket.io está funcionando');
-    io.on('nueva actividad', (actividad)=>{
+    socket.on('nueva actividad', (actividad)=>{
         socket.to(actividad).emit('actividad agregada correctamente', actividad);
     });
 })
