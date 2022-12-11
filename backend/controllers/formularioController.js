@@ -1,4 +1,3 @@
-import express from 'express';
 import Formulario from '../models/formulario.js';
 
 import Usuario from '../models/usuario.js';
