@@ -109,7 +109,6 @@ const obtenerActividadesCreadas = async (req, res) =>{
         return res.status(404).json({msg: error.message});
     }
     try {
-        const actividades = await Actividades.find().where('creadaPor').equals(idUsuario);
         const actividadesCreadas = await Actividades.find().where('creadaPor').equals(idUsuario);
         return res.json(actividadesCreadas);
     } catch (error) {
